@@ -43,9 +43,9 @@ export type Result<T, O = never> = Promise<ResponseData<T> | O>
 
 export interface PaginationOptions {
   /** A zero based index of the first item that is included in the response */
-  index: number
+  index?: number
   /** The requested number of items to be included in the response */
-  pageSize: number
+  pageSize?: number
 }
 
 export interface SearchModsOptions extends PaginationOptions {
