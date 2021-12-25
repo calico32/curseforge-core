@@ -101,6 +101,13 @@ export class CFCoreBadRequestError extends Error {
   constructor({ message, cause }: { message?: string; cause?: unknown } = {}) {
     super(message ?? 'Bad request.', { cause })
     this.name = 'CFCoreBadRequestError'
+    if ((cause as AxiosError).response?.data) {
+      this.message += `\n${JSON.stringify(
+        (cause as AxiosError).response!.data,
+        null,
+        2
+      )}`
+    }
   }
 }
 
