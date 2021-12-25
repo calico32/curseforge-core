@@ -1,0 +1,18 @@
+{
+  "exclude": ["node_modules", "./build"],
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es2022",
+    "lib": ["esnext"],
+    "types": ["@types/error-cause", "@types/node"],
+    "strict": true,
+    "outDir": "./build",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declaration": true
+  }
+}

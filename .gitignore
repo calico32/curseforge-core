@@ -1,0 +1,15 @@
+/.yarn/*
+!/.yarn/patches
+!/.yarn/plugins
+!/.yarn/releases
+!/.yarn/sdks
+
+# swap to enable zero-installs
+#!/.yarn/cache
+/.pnp.*
+
+.idea
+node_modules
+dist
+.env
+build
