@@ -1,3 +1,9 @@
+# 1.1.0
+
+- add Minecraft-specific endpoints and types
+- export `/types` for js users
+- update dependencies
+
 # 1.0.1
 
 - make pagination options optional
@@ -9,4 +15,4 @@
 
 # 1.0.0
 
-Initial release
+initial release

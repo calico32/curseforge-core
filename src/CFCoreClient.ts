@@ -4,6 +4,10 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import 'error-cause/auto'
 import { EventEmitter } from 'node:events'
 import {
+  ApiResponseOfListOfMinecraftGameVersion,
+  ApiResponseOfListOfMinecraftModLoaderIndex,
+  ApiResponseOfMinecraftGameVersion,
+  ApiResponseOfMinecraftModLoaderVersion,
   GetCategoriesResponse,
   GetFeaturedModsRequestBody,
   GetFeaturedModsResponse,
@@ -26,7 +30,7 @@ import {
   SearchModsResponse,
   SortOrder,
   StringResponse,
-} from './cfcore.js'
+} from './types.js'
 
 export interface CFCoreClientOptions {
   /** The base URL of the API (defaults to `https://api.curseforge.com`) */
@@ -571,6 +575,98 @@ export class CFCoreClient extends EventEmitter {
         },
       }
     )
+    return { result: response.data, response }
+  }
+
+  /**
+   * #### Get Minecraft Versions
+   *
+   * `GET /v1/minecraft/version`
+   *
+   * @param sortDescending
+   *
+   * @throws {@link CFCoreNotFoundError}
+   * @throws {@link CFCoreInternalServerError}
+   */
+  async getMinecraftVersions(
+    sortDescending?: boolean
+  ): Result<ApiResponseOfListOfMinecraftGameVersion> {
+    const response =
+      await this.#request<ApiResponseOfListOfMinecraftGameVersion>(
+        '/v1/minecraft/version',
+        {
+          params: {
+            sortDescending,
+          },
+        }
+      )
+    return { result: response.data, response }
+  }
+
+  /**
+   * #### Get Specific Minecraft Version
+   *
+   * `GET /v1/minecraft/version/{gameVersionString}`
+   *
+   * @param gameVersionString
+   *
+   * @throws {@link CFCoreNotFoundError}
+   * @throws {@link CFCoreInternalServerError}
+   */
+  async getMinecraftVersion(
+    gameVersionString: string
+  ): Result<ApiResponseOfMinecraftGameVersion> {
+    const response = await this.#request<ApiResponseOfMinecraftGameVersion>(
+      `/v1/minecraft/version/${gameVersionString}`
+    )
+    return { result: response.data, response }
+  }
+
+  /**
+   * Get Minecraft ModLoaders
+   *
+   * `GET /v1/minecraft/modloader`
+   *
+   * @param version
+   * @param includeAll
+   *
+   * @throws {@link CFCoreNotFoundError}
+   * @throws {@link CFCoreInternalServerError}
+   */
+  async getMinecraftModLoaders(
+    version?: string,
+    includeAll?: boolean
+  ): Result<ApiResponseOfListOfMinecraftModLoaderIndex> {
+    const response =
+      await this.#request<ApiResponseOfListOfMinecraftModLoaderIndex>(
+        '/v1/minecraft/modloader',
+        {
+          params: {
+            version,
+            includeAll,
+          },
+        }
+      )
+    return { result: response.data, response }
+  }
+
+  /**
+   * ### Get Specific Minecraft ModLoader
+   *
+   * `GET /v1/minecraft/modloader/{modLoaderName}`
+   *
+   * @param modLoaderName
+   *
+   * @throws {@link CFCoreNotFoundError}
+   * @throws {@link CFCoreInternalServerError}
+   */
+  async getMinecraftModLoader(
+    modLoaderName: string
+  ): Result<ApiResponseOfMinecraftModLoaderVersion> {
+    const response =
+      await this.#request<ApiResponseOfMinecraftModLoaderVersion>(
+        `/v1/minecraft/modloader/${modLoaderName}`
+      )
     return { result: response.data, response }
   }
 }

@@ -7,6 +7,26 @@ export type DateTimeString =
 
 // ===== cfcore types =====
 
+export interface ApiResponseOfListOfMinecraftGameVersion {
+  /** The response data */
+  data: MinecraftGameVersion[]
+}
+
+export interface ApiResponseOfListOfMinecraftModLoaderIndex {
+  /** The response data */
+  data: MinecraftModLoaderIndex[]
+}
+
+export interface ApiResponseOfMinecraftGameVersion {
+  /** The response data */
+  data: MinecraftGameVersion
+}
+
+export interface ApiResponseOfMinecraftModLoaderVersion {
+  /** The response data */
+  data: MinecraftModLoaderVersion
+}
+
 export interface Category {
   /** The category id */
   id: number
@@ -202,6 +222,17 @@ export interface GameVersionsByType {
   versions: string[]
 }
 
+export enum GameVersionStatus {
+  Approved = 1,
+  Deleted = 2,
+  New = 3,
+}
+
+export enum GameVersionTypeStatus {
+  Normal = 1,
+  Deleted = 2,
+}
+
 export interface GameVersionType {
   id: number
   gameId: number
@@ -304,6 +335,58 @@ export enum HashAlgo {
   Md5 = 2,
 }
 
+export interface MinecraftGameVersion {
+  id: number
+  gameVersionId: number
+  versionString: string
+  jarDownloadUrl: string
+  jsonDownloadUrl: string
+  approved: boolean
+  dateModified: DateTimeString
+  gameVersionTypeId: number
+  gameVersionStatus: GameVersionStatus
+  gameVersionTypeStatus: GameVersionTypeStatus
+}
+
+export interface MinecraftModLoaderIndex {
+  name: string
+  gameVersion: string
+  latest: boolean
+  recommended: boolean
+  dateModified: DateTimeString
+  type: ModLoaderType
+}
+
+export interface MinecraftModLoaderVersion {
+  id: number
+  gameVersionId: number
+  minecraftGameVersionId: number
+  forgeVersion: string
+  name: string
+  type: ModLoaderType
+  downloadUrl: string
+  filename: string
+  installMethod: ModLoaderInstallMethod
+  latest: boolean
+  recommended: boolean
+  approved: boolean
+  dateModified: DateTimeString
+  mavenVersionString: string
+  versionJson: string
+  librariesInstallLocation: string
+  minecraftVersion: string
+  additionalFilesJson: string
+  modLoaderGameVersionId: number
+  modLoaderGameVersionTypeId: number
+  modLoaderGameVersionStatus: GameVersionStatus
+  modLoaderGameVersionTypeStatus: GameVersionTypeStatus
+  mcGameVersionId: number
+  mcGameVersionTypeId: number
+  mcGameVersionStatus: GameVersionStatus
+  mcGameVersionTypeStatus: GameVersionTypeStatus
+  installProfileJson: string
+}
+
 export interface Mod {
   /** The mod id */
   id: number
@@ -369,12 +452,19 @@ export interface ModLinks {
   sourceUrl: string
 }
 
+export enum ModLoaderInstallMethod {
+  ForgeInstaller = 1,
+  ForgeJarInstall = 2,
+  ForgeInstaller_v2 = 3,
+}
+
 export enum ModLoaderType {
   Any = 0,
   Forge = 1,
   Cauldron = 2,
   LiteLoader = 3,
   Fabric = 4,
+  Quilt = 5,
 }
 
 export enum ModsSearchSortField {

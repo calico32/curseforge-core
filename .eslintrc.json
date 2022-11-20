@@ -1,3 +1,4 @@
 {
-  "extends": "@wiisportsresorts/eslint-config"
+  "extends": "@wiisportsresorts/eslint-config",
+  "ignorePatterns": ["build/**/*"]
 }
