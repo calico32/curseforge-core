@@ -1,3 +1,7 @@
+# 1.1.1
+
+- remove `EventEmitter` inheritance from `CFCoreClient`
+
 # 1.1.0
 
 - add Minecraft-specific endpoints and types

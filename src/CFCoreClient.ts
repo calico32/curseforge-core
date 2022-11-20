@@ -2,7 +2,6 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 // TODO: switch error cause to ES2022 error cause when it's available
 import 'error-cause/auto'
-import { EventEmitter } from 'node:events'
 import {
   ApiResponseOfListOfMinecraftGameVersion,
   ApiResponseOfListOfMinecraftModLoaderIndex,
@@ -122,10 +121,8 @@ export class CFCoreBadRequestError extends Error {
  *
  * Methods may throw a {@link CFCoreInternalServerError} if the server returns an error.
  */
-export class CFCoreClient extends EventEmitter {
+export class CFCoreClient {
   constructor(private readonly options: CFCoreClientOptions) {
-    super({ captureRejections: true })
-
     if (!options.apiKey) {
       throw new Error('API key is required')
     }
